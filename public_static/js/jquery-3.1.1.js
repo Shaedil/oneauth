@@ -2698,7 +2698,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 			}
 			if ( (find = Expr.find[ type ]) ) {
 				// Search, expanding context for leading sibling combinators
-				if ( (seed = find(
+				if ( (seed = findOne(
 					token.matches[0].replace( runescape, funescape ),
 					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
 				)) ) {
@@ -2918,7 +2918,7 @@ jQuery.fn.extend( {
 		ret = this.pushStack( [] );
 
 		for ( i = 0; i < len; i++ ) {
-			jQuery.find( selector, self[ i ], ret );
+			jQuery.findOne( selector, self[ i ], ret );
 		}
 
 		return len > 1 ? jQuery.uniqueSort( ret ) : ret;
@@ -3028,12 +3028,12 @@ var rootjQuery,
 
 			// HANDLE: $(expr, $(...))
 			} else if ( !context || context.jquery ) {
-				return ( context || root ).find( selector );
+				return ( context || root ).findOne( selector );
 
 			// HANDLE: $(expr, context)
-			// (which is just equivalent to: $(context).find(expr)
+			// (which is just equivalent to: $(context).findOne(expr)
 			} else {
-				return this.constructor( context ).find( selector );
+				return this.constructor( context ).findOne( selector );
 			}
 
 		// HANDLE: $(DOMElement)
@@ -5254,7 +5254,7 @@ jQuery.event = {
 						if ( matchedSelectors[ sel ] === undefined ) {
 							matchedSelectors[ sel ] = handleObj.needsContext ?
 								jQuery( sel, this ).index( cur ) > -1 :
-								jQuery.find( sel, this, null, [ cur ] ).length;
+								jQuery.findOne( sel, this, null, [ cur ] ).length;
 						}
 						if ( matchedSelectors[ sel ] ) {
 							matchedHandlers.push( handleObj );
@@ -9829,7 +9829,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 				// If a selector was specified, locate the right elements in a dummy div
 				// Exclude scripts to avoid IE 'Permission Denied' errors
-				jQuery( "<div>" ).append( jQuery.parseHTML( responseText ) ).find( selector ) :
+				jQuery( "<div>" ).append( jQuery.parseHTML( responseText ) ).findOne( selector ) :
 
 				// Otherwise use the full result
 				responseText );

@@ -47,7 +47,7 @@ module.exports = new LocalStrategy({
         }
 
         // pick one of the verified or the first one that matches
-        const userLocal = userLocals.find(userLocal => userLocal.user.verifiedemail) || userLocals[0]
+        const userLocal = userLocals.findOne(userLocal => userLocal.user.verifiedemail) || userLocals[0]
        
         if(!userLocal.user.verifiedemail && userLocal.user.username !== username) {
             await createVerifyEmailEntry(userLocal.user, true, '/users/me')

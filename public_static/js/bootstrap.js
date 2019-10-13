@@ -156,7 +156,7 @@ var Util = function ($$$1) {
       }
 
       try {
-        var $selector = $$$1(document).find(selector);
+        var $selector = $$$1(document).findOne(selector);
         return $selector.length > 0 ? selector : null;
       } catch (err) {
         return null;
@@ -423,14 +423,14 @@ var Button = function ($$$1) {
       var rootElement = $$$1(this._element).closest(Selector.DATA_TOGGLE)[0];
 
       if (rootElement) {
-        var input = $$$1(this._element).find(Selector.INPUT)[0];
+        var input = $$$1(this._element).findOne(Selector.INPUT)[0];
 
         if (input) {
           if (input.type === 'radio') {
             if (input.checked && $$$1(this._element).hasClass(ClassName.ACTIVE)) {
               triggerChangeEvent = false;
             } else {
-              var activeElement = $$$1(rootElement).find(Selector.ACTIVE)[0];
+              var activeElement = $$$1(rootElement).findOne(Selector.ACTIVE)[0];
 
               if (activeElement) {
                 $$$1(activeElement).removeClass(ClassName.ACTIVE);
@@ -621,7 +621,7 @@ var Carousel = function ($$$1) {
       this.touchTimeout = null;
       this._config = this._getConfig(config);
       this._element = $$$1(element)[0];
-      this._indicatorsElement = $$$1(this._element).find(Selector.INDICATORS)[0];
+      this._indicatorsElement = $$$1(this._element).findOne(Selector.INDICATORS)[0];
 
       this._addEventListeners();
     } // Getters
@@ -655,7 +655,7 @@ var Carousel = function ($$$1) {
         this._isPaused = true;
       }
 
-      if ($$$1(this._element).find(Selector.NEXT_PREV)[0] && Util.supportsTransitionEnd()) {
+      if ($$$1(this._element).findOne(Selector.NEXT_PREV)[0] && Util.supportsTransitionEnd()) {
         Util.triggerTransitionEnd(this._element);
         this.cycle(true);
       }
@@ -682,7 +682,7 @@ var Carousel = function ($$$1) {
     _proto.to = function to(index) {
       var _this = this;
 
-      this._activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
+      this._activeElement = $$$1(this._element).findOne(Selector.ACTIVE_ITEM)[0];
 
       var activeIndex = this._getItemIndex(this._activeElement);
 
@@ -788,7 +788,7 @@ var Carousel = function ($$$1) {
     };
 
     _proto._getItemIndex = function _getItemIndex(element) {
-      this._items = $$$1.makeArray($$$1(element).parent().find(Selector.ITEM));
+      this._items = $$$1.makeArray($$$1(element).parent().findOne(Selector.ITEM));
       return this._items.indexOf(element);
     };
 
@@ -813,7 +813,7 @@ var Carousel = function ($$$1) {
     _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
       var targetIndex = this._getItemIndex(relatedTarget);
 
-      var fromIndex = this._getItemIndex($$$1(this._element).find(Selector.ACTIVE_ITEM)[0]);
+      var fromIndex = this._getItemIndex($$$1(this._element).findOne(Selector.ACTIVE_ITEM)[0]);
 
       var slideEvent = $$$1.Event(Event.SLIDE, {
         relatedTarget: relatedTarget,
@@ -827,7 +827,7 @@ var Carousel = function ($$$1) {
 
     _proto._setActiveIndicatorElement = function _setActiveIndicatorElement(element) {
       if (this._indicatorsElement) {
-        $$$1(this._indicatorsElement).find(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+        $$$1(this._indicatorsElement).findOne(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
 
         var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
 
@@ -840,7 +840,7 @@ var Carousel = function ($$$1) {
     _proto._slide = function _slide(direction, element) {
       var _this3 = this;
 
-      var activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
+      var activeElement = $$$1(this._element).findOne(Selector.ACTIVE_ITEM)[0];
 
       var activeElementIndex = this._getItemIndex(activeElement);
 
@@ -1137,7 +1137,7 @@ var Collapse = function ($$$1) {
       var activesData;
 
       if (this._parent) {
-        actives = $$$1.makeArray($$$1(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
+        actives = $$$1.makeArray($$$1(this._parent).findOne(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
 
         if (actives.length === 0) {
           actives = null;
@@ -1294,7 +1294,7 @@ var Collapse = function ($$$1) {
       }
 
       var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
-      $$$1(parent).find(selector).each(function (i, element) {
+      $$$1(parent).findOne(selector).each(function (i, element) {
         _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
       });
       return parent;
@@ -1610,7 +1610,7 @@ var Dropdown = function ($$$1) {
       if (!this._menu) {
         var parent = Dropdown._getParentFromElement(this._element);
 
-        this._menu = $$$1(parent).find(Selector.MENU)[0];
+        this._menu = $$$1(parent).findOne(Selector.MENU)[0];
       }
 
       return this._menu;
@@ -1777,7 +1777,7 @@ var Dropdown = function ($$$1) {
 
       if (!isActive && (event.which !== ESCAPE_KEYCODE || event.which !== SPACE_KEYCODE) || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
         if (event.which === ESCAPE_KEYCODE) {
-          var toggle = $$$1(parent).find(Selector.DATA_TOGGLE)[0];
+          var toggle = $$$1(parent).findOne(Selector.DATA_TOGGLE)[0];
           $$$1(toggle).trigger('focus');
         }
 
@@ -1785,7 +1785,7 @@ var Dropdown = function ($$$1) {
         return;
       }
 
-      var items = $$$1(parent).find(Selector.VISIBLE_ITEMS).get();
+      var items = $$$1(parent).findOne(Selector.VISIBLE_ITEMS).get();
 
       if (items.length === 0) {
         return;
@@ -1936,7 +1936,7 @@ var Modal = function ($$$1) {
     function Modal(element, config) {
       this._config = this._getConfig(config);
       this._element = element;
-      this._dialog = $$$1(element).find(Selector.DIALOG)[0];
+      this._dialog = $$$1(element).findOne(Selector.DIALOG)[0];
       this._backdrop = null;
       this._isShown = false;
       this._isBodyOverflowing = false;
@@ -2799,7 +2799,7 @@ var Tooltip = function ($$$1) {
 
     _proto.setContent = function setContent() {
       var $tip = $$$1(this.getTipElement());
-      this.setElementContent($tip.find(Selector.TOOLTIP_INNER), this.getTitle());
+      this.setElementContent($tip.findOne(Selector.TOOLTIP_INNER), this.getTitle());
       $tip.removeClass(ClassName.FADE + " " + ClassName.SHOW);
     };
 
@@ -3185,7 +3185,7 @@ var Popover = function ($$$1) {
     _proto.setContent = function setContent() {
       var $tip = $$$1(this.getTipElement()); // We use append for html objects to maintain js events
 
-      this.setElementContent($tip.find(Selector.TITLE), this.getTitle());
+      this.setElementContent($tip.findOne(Selector.TITLE), this.getTitle());
 
       var content = this._getContent();
 
@@ -3193,7 +3193,7 @@ var Popover = function ($$$1) {
         content = content.call(this.element);
       }
 
-      this.setElementContent($tip.find(Selector.CONTENT), content);
+      this.setElementContent($tip.findOne(Selector.CONTENT), content);
       $tip.removeClass(ClassName.FADE + " " + ClassName.SHOW);
     }; // Private
 
@@ -3516,7 +3516,7 @@ var ScrollSpy = function ($$$1) {
       var $link = $$$1(queries.join(','));
 
       if ($link.hasClass(ClassName.DROPDOWN_ITEM)) {
-        $link.closest(Selector.DROPDOWN).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
+        $link.closest(Selector.DROPDOWN).findOne(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
         $link.addClass(ClassName.ACTIVE);
       } else {
         // Set triggered link as active
@@ -3680,7 +3680,7 @@ var Tab = function ($$$1) {
 
       if (listElement) {
         var itemSelector = listElement.nodeName === 'UL' ? Selector.ACTIVE_UL : Selector.ACTIVE;
-        previous = $$$1.makeArray($$$1(listElement).find(itemSelector));
+        previous = $$$1.makeArray($$$1(listElement).findOne(itemSelector));
         previous = previous[previous.length - 1];
       }
 
@@ -3737,7 +3737,7 @@ var Tab = function ($$$1) {
       var activeElements;
 
       if (container.nodeName === 'UL') {
-        activeElements = $$$1(container).find(Selector.ACTIVE_UL);
+        activeElements = $$$1(container).findOne(Selector.ACTIVE_UL);
       } else {
         activeElements = $$$1(container).children(Selector.ACTIVE);
       }
@@ -3759,7 +3759,7 @@ var Tab = function ($$$1) {
     _proto._transitionComplete = function _transitionComplete(element, active, callback) {
       if (active) {
         $$$1(active).removeClass(ClassName.SHOW + " " + ClassName.ACTIVE);
-        var dropdownChild = $$$1(active.parentNode).find(Selector.DROPDOWN_ACTIVE_CHILD)[0];
+        var dropdownChild = $$$1(active.parentNode).findOne(Selector.DROPDOWN_ACTIVE_CHILD)[0];
 
         if (dropdownChild) {
           $$$1(dropdownChild).removeClass(ClassName.ACTIVE);
@@ -3783,7 +3783,7 @@ var Tab = function ($$$1) {
         var dropdownElement = $$$1(element).closest(Selector.DROPDOWN)[0];
 
         if (dropdownElement) {
-          $$$1(dropdownElement).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
+          $$$1(dropdownElement).findOne(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
         }
 
         element.setAttribute('aria-expanded', true);
